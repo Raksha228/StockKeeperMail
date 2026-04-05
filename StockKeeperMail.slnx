@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="StockKeeperMail.Database/StockKeeperMail.Database.csproj" Id="84fede48-fba8-4b38-a7bb-eb3d2c6d8820" />
+  <Project Path="StockKeeperMail.Desktop/StockKeeperMail.Desktop.csproj" />
+</Solution>
