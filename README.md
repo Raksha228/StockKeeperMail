@@ -2,7 +2,7 @@
 
 # StockKeeperMail
 
-Desktop inventory, warehouse, and order management system built with WPF, Entity Framework Core, and SQL Server.
+Настольная система для управления складом, товарами, заказами и внутренними бизнес-процессами, созданная на WPF, Entity Framework Core и SQL Server
 
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET-10-512BD4?style=for-the-badge&logo=.net&logoColor=white)
@@ -13,110 +13,107 @@ Desktop inventory, warehouse, and order management system built with WPF, Entity
 ![Material Design](https://img.shields.io/badge/Material_Design_in_XAML-757575?style=for-the-badge&logo=materialdesign&logoColor=white)
 ![MVVM](https://img.shields.io/badge/MVVM-CommunityToolkit-0A84FF?style=for-the-badge)
 
-[Repository](https://github.com/Raksha228/StockKeeperMail) · [Issues](https://github.com/Raksha228/StockKeeperMail/issues)
+[Репозиторий](https://github.com/Raksha228/StockKeeperMail) · [Issues](https://github.com/Raksha228/StockKeeperMail/issues)
 
 </div>
 
 ---
 
-## Table of Contents
+## Содержание
 
-- [About the Project](#about-the-project)
-- [Core Functionality](#core-functionality)
-- [Technology Stack](#technology-stack)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Database Setup](#database-setup)
-- [First Login and Initial Data](#first-login-and-initial-data)
-- [Planned Improvements](#planned-improvements)
+- [О проекте](#о-проекте)
+- [Основные возможности](#основные-возможности)
+- [Технологический стек](#технологический-стек)
+- [Архитектура](#архитектура)
+- [Структура проекта](#структура-проекта)
+- [Быстрый старт](#быстрый-старт)
+- [Настройка базы данных](#настройка-базы-данных)
+- [Первый запуск и вход в систему](#первый-запуск-и-вход-в-систему)
+- [Планы по развитию](#планы-по-развитию)
 
-## About the Project
+## О проекте
 
-**StockKeeperMail** is a desktop system for managing warehouse operations, products, orders, customers, staff, and internal communication in one application.
+**StockKeeperMail** — это настольное приложение для комплексного управления складским учетом и сопутствующими бизнес-процессами. Проект объединяет в одной системе работу с товарами, категориями, поставщиками, заказами, клиентами, сотрудниками, складскими локациями, внутренними сообщениями и журналом действий.
 
-The project is focused on day-to-day inventory workflows: keeping product records up to date, tracking stock by warehouse location, creating and processing orders, monitoring delivery status, registering defective goods, and keeping an internal audit trail of important actions.
+В отличие от простого CRUD-примера, здесь сделан упор на реальные пользовательские сценарии: учет остатков, движение товаров по складу, оформление заказа с позициями, контроль статусов доставки, работа с бракованным товаром, разграничение доступа по ролям и отслеживание действий пользователей.
 
-Unlike a minimal CRUD demo, this application combines operational screens, warehouse movement logic, dashboard analytics, role-based access control, internal staff messaging, and invoice printing in a single WPF solution.
+Такой формат делает проект подходящим не только как учебную работу, но и как полноценный pet-project для портфолио по WPF, MVVM и EF Core.
 
-## Core Functionality
+## Основные возможности
 
-### 1. Authentication and access control
-- Staff login through the desktop client
-- Role-based permissions for separate modules
-- Restriction of view, create, edit, and delete actions by role
-- Separation of business areas such as orders, products, customers, storage, logs, roles, suppliers, and staff
+### 1. Авторизация и разграничение доступа
+- вход сотрудников в систему через окно авторизации
+- ролевая модель доступа
+- разграничение прав на просмотр, создание, изменение и удаление данных
+- ограничение доступа к отдельным модулям системы в зависимости от роли пользователя
 
-### 2. Dashboard and operational analytics
-- Monthly revenue overview
-- Monthly order count
-- Total products in stock
-- Delivery status counters for:
-  - Processing
-  - Shipped
-  - In Transit
-  - Delivered
-- Sales chart for the current year
+### 2. Дашборд и аналитика
+- обзор ключевых показателей по системе
+- отображение выручки по месяцам
+- отображение количества заказов по месяцам
+- подсчет общего количества товаров в системе
+- статистика по статусам доставки
+- графическое представление продаж за текущий период
 
-### 3. Product and catalog management
-- Product creation and editing
-- SKU, unit, price, availability, quantity, supplier, and category management
-- Category management
-- Supplier management
-- Product-to-location assignment
+### 3. Управление товарами и каталогом
+- создание, редактирование и удаление товаров
+- работа с ценой, количеством, единицей измерения и доступностью
+- управление категориями
+- управление поставщиками
+- привязка товара к складской локации
+- учет остатков по конкретным местам хранения
 
-### 4. Warehouse and stock operations
-- Warehouse location management
-- Detailed stock view by location
-- Moving products between locations
-- Taking products from a location
-- Disposing products from stock
-- Declaring defective items
-- Updating product quantities during warehouse operations
+### 4. Складские операции
+- создание и редактирование складских локаций
+- перемещение товаров между локациями
+- списание товара
+- изъятие товара со склада
+- фиксация бракованной продукции
+- автоматическое изменение остатков при выполнении операций
 
-### 5. Order management
-- Order creation and editing
-- Customer binding for each order
-- Order detail management
-- Automatic order total calculation
-- Delivery status tracking
-- Invoice view and invoice printing
+### 5. Работа с заказами
+- создание и редактирование заказов
+- привязка клиента к заказу
+- добавление позиций заказа
+- автоматический расчет общей суммы заказа
+- контроль статуса доставки
+- формирование и печать накладной
 
-### 6. Customer and staff management
-- Customer records
-- Staff records
-- Role assignment for staff members
-- Administrative control over business users inside the system
+### 6. Работа с клиентами и персоналом
+- ведение базы клиентов
+- ведение базы сотрудников
+- назначение ролей сотрудникам
+- административное управление пользователями системы
 
-### 7. Internal communication and traceability
-- Built-in internal message module between staff members
-- Inbox and sent views
-- Read/unread message state
-- System log records for important actions
+### 7. Внутренняя коммуникация и аудит действий
+- внутренние сообщения между сотрудниками
+- входящие и отправленные сообщения
+- статус прочтения сообщений
+- журналирование ключевых действий в системе
 
-## Technology Stack
+## Технологический стек
 
-- **Language:** C#
-- **Framework:** .NET 10 Windows
-- **UI:** WPF + XAML
-- **Architecture pattern:** MVVM
+- **Язык программирования:** C#
+- **Платформа:** .NET 10 Windows
+- **Пользовательский интерфейс:** WPF + XAML
+- **Архитектурный подход:** MVVM
 - **MVVM toolkit:** CommunityToolkit.Mvvm
-- **UI styling:** MaterialDesignThemes + MaterialDesignColors
-- **Charts:** LiveCharts
+- **UI-библиотека:** MaterialDesignThemes + MaterialDesignColors
+- **Графики и диаграммы:** LiveCharts
 - **ORM:** Entity Framework Core
-- **Database:** Microsoft SQL Server
-- **Configuration:** Microsoft.Extensions.Configuration + JSON configuration file
+- **СУБД:** Microsoft SQL Server
+- **Конфигурация:** Microsoft.Extensions.Configuration + JSON-файл настроек
 
-## Architecture
+## Архитектура
 
-The solution is split into two main projects:
+Решение разделено на два основных проекта:
 
-- **StockKeeperMail.Desktop** — WPF desktop client with views, view models, controls, services, navigation, and user workflows
-- **StockKeeperMail.Database** — Entity Framework Core context, entities, migrations, and database configuration
+- **StockKeeperMail.Desktop** — клиентская часть на WPF, включающая представления, ViewModel, навигацию, сервисы, контролы и пользовательские сценарии
+- **StockKeeperMail.Database** — слой доступа к данным, включающий сущности, `DbContext`, миграции и конфигурацию подключения к базе данных
 
-This separation keeps the presentation layer independent from the persistence layer and makes it easier to maintain the codebase.
+Такое разделение делает проект понятнее в сопровождении и упрощает развитие приложения по слоям.
 
-## Project Structure
+## Структура проекта
 
 ```text
 StockKeeperMail/
@@ -138,48 +135,48 @@ StockKeeperMail/
 └── StockKeeperMail.slnx
 ```
 
-## Getting Started
+## Быстрый старт
 
-### Prerequisites
+### Что понадобится
 
-Before running the project, make sure you have:
+Перед запуском проекта убедись, что у тебя установлены:
 
-- Visual Studio 2022 with desktop development tools
+- Visual Studio 2022 с поддержкой desktop development
 - .NET 10 SDK
-- Microsoft SQL Server Express, Developer, or LocalDB
-- SQL Server Management Studio, optional but useful for inspection and manual setup
+- Microsoft SQL Server Express, Developer или LocalDB
+- SQL Server Management Studio, по желанию, для удобной проверки базы данных
 
-### Clone the repository
+### Клонирование репозитория
 
 ```bash
 git clone https://github.com/Raksha228/StockKeeperMail.git
 cd StockKeeperMail
 ```
 
-### Open the solution
+### Открытие решения
 
-Open the solution file in Visual Studio and restore NuGet packages.
+Открой решение в Visual Studio и дождись восстановления NuGet-пакетов.
 
-## Database Setup
+## Настройка базы данных
 
-1. Open `StockKeeperMail.Database/dbconfig.json`
-2. Set your SQL Server connection string
-3. In Visual Studio, open **Package Manager Console**
-4. Select **StockKeeperMail.Database** as the default project
-5. Apply migrations:
+1. Открой файл `StockKeeperMail.Database/dbconfig.json`
+2. Укажи свою строку подключения к SQL Server
+3. В Visual Studio открой **Package Manager Console**
+4. Выбери **StockKeeperMail.Database** как проект по умолчанию
+5. Примени миграции:
 
 ```powershell
 Update-Database
 ```
 
-If you change the data model later, create a new migration first:
+Если после изменений в моделях понадобится создать новую миграцию, используй:
 
 ```powershell
 Add-Migration MigrationName
 Update-Database
 ```
 
-### Example connection string
+### Пример строки подключения
 
 ```json
 {
@@ -189,27 +186,26 @@ Update-Database
 }
 ```
 
-## First Login and Initial Data
+## Первый запуск и вход в систему
 
-Important note: the application does **not** currently ship with guaranteed seed data for roles and staff accounts.
+После создания базы данных нужно подготовить начальные записи для входа в приложение.
 
-That means after creating the database you should prepare at least:
+Минимально потребуется:
+- хотя бы одна запись в таблице **Role**
+- хотя бы одна запись в таблице **Staff**
+- логин и пароль сотрудника для авторизации
 
-- one **Role** record with the permissions you need
-- one **Staff** record linked to that role
-- valid `StaffUsername` and `StaffPassword` values for login
+Без этих данных окно входа откроется, но войти в систему будет невозможно.
 
-Without initial staff data, the login screen will open correctly, but there will be no account to authenticate with.
+## Планы по развитию
 
-## Planned Improvements
-
-- stronger bootstrap flow for first launch and admin account creation
-- password hashing instead of plain-text password storage
-- automatic seed data for initial roles and staff
-- export and reporting improvements
-- screenshots and interface preview in the README
-- deployment instructions for release builds
+- автоматическое создание стартовой административной учетной записи
+- хэширование паролей вместо хранения в открытом виде
+- начальное заполнение базы обязательными данными
+- улучшение отчетности и экспорта
+- добавление скриншотов интерфейса в README
+- более подробная инструкция по сборке release-версии
 
 ---
 
-If this project is useful, consider starring the repository and opening an issue for suggestions or improvements.
+Если проект оказался полезным или интересным, можешь поставить звезду репозиторию и открыть issue с предложением по улучшению
