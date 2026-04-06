@@ -106,7 +106,7 @@
                         <DataGridTextColumn
                                 Header="Доступность"
                                 HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                Binding="{Binding ProductAvailability}"
+                                Binding="{Binding ProductAvailability, Converter={StaticResource EnglishToRussianUiTextConverter}}"
                                 Width="auto"/>
 
 

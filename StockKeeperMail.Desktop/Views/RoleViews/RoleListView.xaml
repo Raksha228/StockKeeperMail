@@ -85,7 +85,7 @@
                         <DataGridTextColumn
                                     Header="Статус"
                                     HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
-                                    Binding="{Binding RoleStatus}"
+                                    Binding="{Binding RoleStatus, Converter={StaticResource EnglishToRussianUiTextConverter}}"
                                     Width="auto"/>
 
                         <DataGridTemplateColumn 

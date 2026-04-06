@@ -104,7 +104,7 @@
                             Header="Статус доставки"
                             HeaderStyle="{StaticResource MaterialDesignDataGridColumnHeader}"
                             CellStyle="{StaticResource MaterialDesignDataGridCell}"
-                            Binding="{Binding DeliveryStatus}"
+                            Binding="{Binding DeliveryStatus, Converter={StaticResource EnglishToRussianUiTextConverter}}"
                             Width="auto"/>
 
                         <DataGridTemplateColumn>
