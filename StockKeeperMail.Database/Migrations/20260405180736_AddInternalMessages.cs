@@ -314,6 +314,9 @@ namespace StockKeeperMail.Database.Migrations
                     CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeliveryStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExternalOrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsOnlineOrder = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderTotal = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>

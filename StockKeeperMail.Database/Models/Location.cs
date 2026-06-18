@@ -1,20 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockKeeperMail.Database.Models
 {
     /// <summary>
-    /// Представляет класс Location.
+    /// Представляет локацию хранения товара внутри склада.
     /// </summary>
     public class Location
     {
+        /// <summary>
+        /// Уникальный идентификатор локации.
+        /// </summary>
         [Key]
         public Guid LocationID { get; set; }
+
+        /// <summary>
+        /// Наименование локации хранения.
+        /// </summary>
         public string LocationName { get; set; }
+
+        /// <summary>
+        /// Связанная коллекция размещений товаров по локациям.
+        /// </summary>
         public ICollection<ProductLocation> ProductLocations { get; set; }
     }
 }

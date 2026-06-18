@@ -1,9 +1,4 @@
 ﻿using StockKeeperMail.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockKeeperMail.Desktop.DAL
 {
@@ -12,18 +7,6 @@ namespace StockKeeperMail.Desktop.DAL
     /// </summary>
     public interface IUnitOfWork
     {
-
-        //public IRepository<Role> RoleRepository { get; }
-        //public IRepository<Category> CategoryRepository { get; }
-        //public IRepository<Warehouse> warehouseRepository { get; }
-        //public IRepository<Supplier> SupplierRepository { get; }
-        //public IRepository<Staff> StaffRepository { get; }
-        //public IRepository<Product> ProductRepository { get; }
-        //public IRepository<Order> OrderRepository { get; }
-        //public IRepository<OrderDetail> OrderDetailRepository { get; }
-        //public IRepository<Location> LocationRepository { get; }
-        //public IRepository<Customer> CustomerRepository { get; }
-
         public GenericRepository<Role> RoleRepository { get; }
         public GenericRepository<Category> CategoryRepository { get; }
         public GenericRepository<Warehouse> WarehouseRepository { get; }
@@ -34,6 +17,11 @@ namespace StockKeeperMail.Desktop.DAL
         public GenericRepository<OrderDetail> OrderDetailRepository { get; }
         public GenericRepository<Location> LocationRepository { get; }
         public GenericRepository<Customer> CustomerRepository { get; }
+        public GenericRepository<Defective> DefectiveRepository { get; }
+        public GenericRepository<ProductLocation> ProductLocationRepository { get; }
+        public GenericRepository<PurchaseReceipt> PurchaseReceiptRepository { get; }
+        public GenericRepository<Log> LogRepository { get; }
+        public GenericRepository<InternalMessage> InternalMessageRepository { get; }
 
         public void Save();
     }

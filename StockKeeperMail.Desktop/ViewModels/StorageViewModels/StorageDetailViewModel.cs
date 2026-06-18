@@ -27,7 +27,7 @@ namespace StockKeeperMail.Desktop.ViewModels
 
         private UnitOfWork _unitOfWork;
 
-        private readonly Location _location;
+        private  Location _location;
 
         public LocationViewModel Location => new LocationViewModel(_location);
 
@@ -123,11 +123,23 @@ namespace StockKeeperMail.Desktop.ViewModels
 
         public void LoadProductLocations()
         {
+            _location = _unitOfWork.LocationRepository
+                .Get(l => l.LocationID == _location.LocationID, includeProperties: "ProductLocations,ProductLocations.Product")
+                .SingleOrDefault();
+
             _productLocations.Clear();
+
+            if (_location?.ProductLocations == null)
+            {
+                StorageDetailListViewHelper.RefreshCollection();
+                return;
+            }
+
             foreach (ProductLocation pl in _location.ProductLocations)
             {
                 _productLocations.Add(new ProductLocationViewModel(pl));
             }
+
             StorageDetailListViewHelper.RefreshCollection();
         }
 

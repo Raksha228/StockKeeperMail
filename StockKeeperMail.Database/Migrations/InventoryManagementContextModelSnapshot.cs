@@ -185,6 +185,15 @@ namespace StockKeeperMail.Database.Migrations
                     b.Property<string>("DeliveryStatus")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DeliveryAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExternalOrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOnlineOrder")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -277,6 +286,52 @@ namespace StockKeeperMail.Database.Migrations
                     b.HasIndex("LocationID");
 
                     b.ToTable("ProductLocations");
+                });
+
+            modelBuilder.Entity("StockKeeperMail.Database.Models.PurchaseReceipt", b =>
+                {
+                    b.Property<Guid>("PurchaseReceiptID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProductID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PurchasedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SupplierID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("WarehouseID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PurchaseReceiptID");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("SupplierID");
+
+                    b.HasIndex("WarehouseID");
+
+                    b.ToTable("PurchaseReceipts");
                 });
 
             modelBuilder.Entity("StockKeeperMail.Database.Models.Role", b =>
@@ -672,6 +727,33 @@ namespace StockKeeperMail.Database.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("ProductLocations");
+                });
+
+            modelBuilder.Entity("StockKeeperMail.Database.Models.PurchaseReceipt", b =>
+                {
+                    b.HasOne("StockKeeperMail.Database.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockKeeperMail.Database.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StockKeeperMail.Database.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("StockKeeperMail.Database.Models.Role", b =>

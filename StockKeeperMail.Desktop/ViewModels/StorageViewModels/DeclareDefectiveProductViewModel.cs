@@ -112,6 +112,9 @@ namespace StockKeeperMail.Desktop.ViewModels
             _unitOfWork.DefectiveRepository.Insert(newDefective);
             _productLocation.ProductQuantity -= Convert.ToInt32(_quantity);
             _productLocation.Product.ProductQuantity -= Convert.ToInt32(_quantity);
+
+            _unitOfWork.ProductLocationRepository.Update(_productLocation);
+            _unitOfWork.ProductRepository.Update(_productLocation.Product);
             _unitOfWork.LogRepository.Insert(LogUtil.CreateLog(LogCategory.STORAGES, ActionType.DELARE_AS_DEFECTIVE, $"Product declared as defective; ProductID: {_productLocation.ProductID}, Quantity: {_quantity}"));
             _unitOfWork.Save();
 

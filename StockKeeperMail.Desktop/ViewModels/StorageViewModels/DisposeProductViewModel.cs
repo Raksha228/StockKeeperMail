@@ -86,6 +86,9 @@ namespace StockKeeperMail.Desktop.ViewModels
 
             _productLocation.ProductQuantity -= Convert.ToInt32(_disposeQuantity);
             _productLocation.Product.ProductQuantity -= Convert.ToInt32(_disposeQuantity);
+
+            _unitOfWork.ProductLocationRepository.Update(_productLocation);
+            _unitOfWork.ProductRepository.Update(_productLocation.Product);
             _unitOfWork.LogRepository.Insert(LogUtil.CreateLog(LogCategory.STORAGES, ActionType.DISPOSE, $"Product disposed; ProductID: {_productLocation.ProductID}; Quantity: {_disposeQuantity};"));
             _unitOfWork.Save();
 

@@ -1,14 +1,5 @@
-﻿{
-  //"exclude": [
-  //  "**/bin",
-  //  "**/bower_components",
-  //  "**/jspm_packages",
-  //  "**/node_modules",
-  //  "**/obj",
-  //  "**/platforms"
-  //]
-
+{
   "ConnectionStrings": {
-    "DB": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=VLGMedBD;Integrated Security=True;Encrypt=False;"
+    "DB": "Server=(localdb)\\MSSQLLocalDB;Database=StockKeeperMailLocalDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
   }
 }

@@ -27,11 +27,18 @@ namespace StockKeeperMail.Desktop.ViewModels.ListViewHelpers
 
         protected override bool FilterCollection(object obj)
         {
-            if(obj is ProductLocationViewModel viewModel)
+            if (obj is not ProductLocationViewModel viewModel)
             {
-                return viewModel.Product.ProductName.Contains(Filter, StringComparison.InvariantCultureIgnoreCase);
+                return false;
             }
-            return false;
+
+            if (string.IsNullOrWhiteSpace(Filter))
+            {
+                return true;
+            }
+
+            string productName = viewModel.Product?.ProductName ?? string.Empty;
+            return productName.Contains(Filter, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

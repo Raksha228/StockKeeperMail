@@ -1,12 +1,4 @@
-﻿using StockKeeperMail.Database.Models;
-using StockKeeperMail.Desktop.DAL;
-using StockKeeperMail.Desktop.Stores;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StockKeeperMail.Database.Models;
 
 namespace StockKeeperMail.Desktop.ViewModels
 {
@@ -18,16 +10,28 @@ namespace StockKeeperMail.Desktop.ViewModels
         private readonly Log _log;
         public Log Log => _log;
 
-        public string LogID => _log.LogID.ToString();
-        public string StaffName => _log.Staff.StaffFirstName + " " + _log.Staff.StaffLastName;
-        public string LogCategory => _log.LogCategory;
-        public string ActionType => _log.ActionType;
-        public string LogDetails => _log.LogDetails;
-        public string DateTime => _log.DateTime.ToString();
+        public string LogID => _log?.LogID.ToString() ?? string.Empty;
+        public string StaffName
+        {
+            get
+            {
+                if (_log?.Staff == null)
+                {
+                    return "—";
+                }
+
+                string fullName = $"{_log.Staff.StaffFirstName} {_log.Staff.StaffLastName}".Trim();
+                return string.IsNullOrWhiteSpace(fullName) ? "—" : fullName;
+            }
+        }
+        public string LogCategory => _log?.LogCategory ?? string.Empty;
+        public string ActionType => _log?.ActionType ?? string.Empty;
+        public string LogDetails => _log?.LogDetails ?? string.Empty;
+        public string DateTime => _log?.DateTime.ToString() ?? string.Empty;
 
         public LogViewModel(Log log)
         {
-            _log = log;
+            _log = log ?? new Log();
         }
     }
 }

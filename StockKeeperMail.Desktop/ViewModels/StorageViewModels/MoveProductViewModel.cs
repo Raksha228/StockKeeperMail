@@ -142,10 +142,12 @@ namespace StockKeeperMail.Desktop.ViewModels
             else // если товар уже есть в целевой локации — увеличиваем количество
             {
                 storedProductLocation.ProductQuantity += Convert.ToInt32(_quantity);
+                _unitOfWork.ProductLocationRepository.Update(storedProductLocation);
             }
 
             _unitOfWork.LogRepository.Insert(LogUtil.CreateLog(LogCategory.STORAGES, ActionType.MOVE, $"Product moved; ProductID: {_productLocation.ProductID}, From LocationID {_oldLocationID} to {_locationID}; Quantity: {_quantity};"));
             _productLocation.ProductQuantity -= Convert.ToInt32(_quantity);
+            _unitOfWork.ProductLocationRepository.Update(_productLocation);
             _unitOfWork.Save();
 
             _closeDialogCallback();

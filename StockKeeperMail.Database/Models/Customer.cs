@@ -1,25 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockKeeperMail.Database.Models
 {
     /// <summary>
-    /// Представляет класс Customer.
+    /// Представляет клиента, оформляющего заказы в системе.
     /// </summary>
     public class Customer
     {
+        /// <summary>
+        /// Уникальный идентификатор клиента.
+        /// </summary>
         [Key]
         public Guid CustomerID { get; set; }
+
+        /// <summary>
+        /// Уникальный идентификатор сотрудника.
+        /// </summary>
         public Guid StaffID { get; set; }
+        /// <summary>
+        /// Имя клиента.
+        /// </summary>
         public string CustomerFirstname { get; set; }
+        /// <summary>
+        /// Фамилия клиента.
+        /// </summary>
         public string CustomerLastname { get; set; }
+        /// <summary>
+        /// Адрес клиента.
+        /// </summary>
         public string CustomerAddress { get; set; }
+        /// <summary>
+        /// Контактный телефон клиента.
+        /// </summary>
         public string CustomerPhone { get; set; }
+        /// <summary>
+        /// Электронная почта клиента.
+        /// </summary>
         public string CustomerEmail { get; set; }
+
+        /// <summary>
+        /// Связанный сотрудник.
+        /// </summary>
         public Staff Staff { get; set; }
     }
 }

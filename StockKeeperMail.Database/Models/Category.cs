@@ -1,23 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockKeeperMail.Database.Models
 {
     /// <summary>
-    /// Представляет класс Category.
+    /// Представляет категорию товаров, используемую для группировки номенклатуры.
     /// </summary>
     public class Category
     {
-
+        /// <summary>
+        /// Уникальный идентификатор категории.
+        /// </summary>
         [Key]
         public Guid CategoryID { get; set; }
+
+        /// <summary>
+        /// Наименование категории.
+        /// </summary>
         public string CategoryName { get; set; }
+        /// <summary>
+        /// Текущий статус категории.
+        /// </summary>
         public string CategoryStatus { get; set; }
+        /// <summary>
+        /// Описание категории.
+        /// </summary>
         public string CategoryDescription { get; set; }
+
+        /// <summary>
+        /// Связанная коллекция товаров.
+        /// </summary>
         public ICollection<Product> Products { get; set; }
     }
 }

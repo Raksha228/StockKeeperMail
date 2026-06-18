@@ -107,6 +107,7 @@ namespace StockKeeperMail.Desktop.ViewModels
 
             _unitOfWork.DefectiveRepository.Insert(newDefective);
             newDefective.Product.ProductQuantity -= Convert.ToInt32(_quantity);
+            _unitOfWork.ProductRepository.Update(newDefective.Product);
             _unitOfWork.Save();
 
             _closeDialogCallback();

@@ -24,6 +24,7 @@ namespace StockKeeperMail.Database.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Defective> Defectives { get; set; }
         public DbSet<ProductLocation> ProductLocations { get; set; }
+        public DbSet<PurchaseReceipt> PurchaseReceipts { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<InternalMessage> InternalMessages { get; set; }
 
@@ -80,6 +81,37 @@ namespace StockKeeperMail.Database.Data
                 .Entity<Warehouse>()
                 .Property(w => w.WarehouseVat)
                 .HasPrecision(18, 2);
+
+            modelBuilder
+                .Entity<PurchaseReceipt>()
+                .Property(pr => pr.UnitPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder
+                .Entity<PurchaseReceipt>()
+                .Property(pr => pr.TotalAmount)
+                .HasPrecision(18, 2);
+
+            modelBuilder
+                .Entity<PurchaseReceipt>()
+                .HasOne(pr => pr.Supplier)
+                .WithMany()
+                .HasForeignKey(pr => pr.SupplierID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<PurchaseReceipt>()
+                .HasOne(pr => pr.Product)
+                .WithMany()
+                .HasForeignKey(pr => pr.ProductID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<PurchaseReceipt>()
+                .HasOne(pr => pr.Warehouse)
+                .WithMany()
+                .HasForeignKey(pr => pr.WarehouseID)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
                 .Entity<InternalMessage>()

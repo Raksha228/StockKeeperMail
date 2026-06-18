@@ -188,6 +188,15 @@ namespace StockKeeperMail.Database.Migrations
                     b.Property<string>("DeliveryStatus")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DeliveryAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExternalOrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOnlineOrder")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 

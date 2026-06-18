@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using StockKeeperMail.Database.Models;
 using StockKeeperMail.Desktop.Stores;
 using System;
@@ -32,6 +32,7 @@ namespace StockKeeperMail.Desktop.ViewModels
         public RelayCommand NavigateToSupplierListCommand { get; }
         public RelayCommand NavigateToStaffListCommand { get; }
         public RelayCommand NavigateToProductListCommand { get; }
+        public RelayCommand NavigateToPurchaseReceiptListCommand { get; }
         public RelayCommand NavigateToOrderListCommand { get; }
         public RelayCommand NavigateToLocationListCommand { get; }
         public RelayCommand NavigateToCustomerListCommand { get; }
@@ -40,6 +41,8 @@ namespace StockKeeperMail.Desktop.ViewModels
         public RelayCommand NavigateToDashboardCommand { get; }
         public RelayCommand NavigateToLogListCommand { get; }
         public RelayCommand NavigateToMessageListCommand { get; }
+        public RelayCommand NavigateToCredentialListCommand { get; }
+        public RelayCommand NavigateToReportListCommand { get; }
 
         public RelayCommand LogOutCommand { get; }
         public MainViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
@@ -60,6 +63,7 @@ namespace StockKeeperMail.Desktop.ViewModels
             NavigateToSupplierListCommand = new RelayCommand(NavigateToSupplierList);
             NavigateToStaffListCommand = new RelayCommand(NavigateToStaffList);
             NavigateToProductListCommand = new RelayCommand(NavigateToProductList);
+            NavigateToPurchaseReceiptListCommand = new RelayCommand(NavigateToPurchaseReceiptList);
             NavigateToOrderListCommand = new RelayCommand(NavigateToOrderList);
             NavigateToLocationListCommand = new RelayCommand(NavigateToLocationList);
             NavigateToCustomerListCommand = new RelayCommand(NavigateToCustomerList);
@@ -68,6 +72,8 @@ namespace StockKeeperMail.Desktop.ViewModels
             NavigateToDashboardCommand = new RelayCommand(NavigateToDashboard);
             NavigateToLogListCommand = new RelayCommand(NavigateToLogList);
             NavigateToMessageListCommand = new RelayCommand(NavigateToMessageList);
+            NavigateToCredentialListCommand = new RelayCommand(NavigateToCredentialList);
+            NavigateToReportListCommand = new RelayCommand(NavigateToReportList);
             LogOutCommand = new RelayCommand(LogOut);
 
         }
@@ -94,6 +100,21 @@ namespace StockKeeperMail.Desktop.ViewModels
         private void NavigateToMessageList()
         {
             _navigationStore.CurrentViewModel = MessageListViewModel.LoadViewModel(_navigationStore, _authenticationStore);
+        }
+
+        private void NavigateToCredentialList()
+        {
+            if (!(_authenticationStore.CurrentStaff?.Role?.RolesAdd ?? false))
+            {
+                return;
+            }
+
+            _navigationStore.CurrentViewModel = CredentialListViewModel.LoadViewModel(_navigationStore);
+        }
+
+        private void NavigateToReportList()
+        {
+            _navigationStore.CurrentViewModel = ReportListViewModel.LoadViewModel(_navigationStore, _authenticationStore);
         }
 
         public void NavigateToStorageList()
@@ -130,6 +151,11 @@ namespace StockKeeperMail.Desktop.ViewModels
         public void NavigateToProductList()
         {
             _navigationStore.CurrentViewModel = ProductListViewModel.LoadViewModel(_navigationStore);
+        }
+
+        public void NavigateToPurchaseReceiptList()
+        {
+            _navigationStore.CurrentViewModel = PurchaseReceiptListViewModel.LoadViewModel(_navigationStore);
         }
 
         public void NavigateToCustomerList()

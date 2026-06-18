@@ -93,6 +93,18 @@
         <views:RoleFormView />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type view_models:CredentialListViewModel}">
+        <views:CredentialListView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type view_models:ReportListViewModel}">
+        <views:ReportListView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type view_models:CreateReportViewModel}">
+        <views:CreateReportView />
+    </DataTemplate>
+
 
 
 
@@ -128,6 +140,15 @@
     <DataTemplate DataType="{x:Type view_models:ProductListViewModel}">
         <views:ProductListView />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type view_models:PurchaseReceiptListViewModel}">
+        <views:PurchaseReceiptListView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type view_models:CreatePurchaseReceiptViewModel}">
+        <views:CreatePurchaseReceiptView />
+    </DataTemplate>
+
 
     <DataTemplate DataType="{x:Type view_models:CreateProductViewModel}">
         <views:ProductFormView />

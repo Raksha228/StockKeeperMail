@@ -99,20 +99,39 @@ namespace StockKeeperMail.Desktop.ViewModels
             ProductLocation productLocation = _location.ProductLocations.SingleOrDefault(od => od.ProductID.ToString() == _productID);
             if (productLocation == null)
             {
+                Product selectedProduct = _products.SingleOrDefault(p => p.ProductID == _productID)?.Product;
+
+                if (selectedProduct == null)
+                {
+                    MessageBox.Show("Не удалось определить выбранный товар.");
+                    return;
+                }
+
                 ProductLocation newProductLocation = new ProductLocation()
                 {
                     LocationID = _location.LocationID,
                     ProductID = new Guid(_productID),
-                    ProductQuantity = Convert.ToInt32(_productQuantity)
+                    ProductQuantity = Convert.ToInt32(_productQuantity),
+                    Product = selectedProduct,
+                    Location = _location
                 };
+
+                _unitOfWork.ProductLocationRepository.Insert(newProductLocation);
                 _location.ProductLocations.Add(newProductLocation);
             }
             else
             {
                 productLocation.ProductQuantity += Convert.ToInt32(_productQuantity);
+                _unitOfWork.ProductLocationRepository.Update(productLocation);
             }
 
-            _products.SingleOrDefault(p => p.ProductID == _productID).Product.ProductQuantity += Convert.ToInt32(_productQuantity);
+            Product updatedProduct = _products.SingleOrDefault(p => p.ProductID == _productID).Product;
+            updatedProduct.ProductQuantity += Convert.ToInt32(_productQuantity);
+
+            _unitOfWork.ProductRepository.Update(updatedProduct);
+
+
+
             _unitOfWork.LogRepository.Insert(LogUtil.CreateLog(LogCategory.STORAGES, ActionType.ADD_STOCK, $"Product stocks added to location; locationID: {_location.LocationID}; ProductID: {_productID};"));
             _unitOfWork.Save();
 

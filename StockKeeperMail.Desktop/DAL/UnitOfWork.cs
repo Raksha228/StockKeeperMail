@@ -1,24 +1,20 @@
 ﻿using StockKeeperMail.Database.Data;
 using StockKeeperMail.Database.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace StockKeeperMail.Desktop.DAL
 {
     /// <summary>
-    /// Представляет класс UnitOfWork.
+    /// Представляет класс UnitOfWork для работы напрямую с SQL Server LocalDB через Entity Framework Core.
+    /// Desktop работает с БД напрямую, без отдельной серверной части.
     /// </summary>
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private bool disposed = false;
 
-        private InventoryManagementContext _context;
+        private readonly InventoryManagementContext _context;
         private IDbContextTransaction _transaction;
-
 
         public GenericRepository<Role> RoleRepository { get; }
         public GenericRepository<Category> CategoryRepository { get; }
@@ -32,6 +28,7 @@ namespace StockKeeperMail.Desktop.DAL
         public GenericRepository<Customer> CustomerRepository { get; }
         public GenericRepository<Defective> DefectiveRepository { get; }
         public GenericRepository<ProductLocation> ProductLocationRepository { get; }
+        public GenericRepository<PurchaseReceipt> PurchaseReceiptRepository { get; }
         public GenericRepository<Log> LogRepository { get; }
         public GenericRepository<InternalMessage> InternalMessageRepository { get; }
 
@@ -51,6 +48,7 @@ namespace StockKeeperMail.Desktop.DAL
             CustomerRepository = new GenericRepository<Customer>(_context);
             DefectiveRepository = new GenericRepository<Defective>(_context);
             ProductLocationRepository = new GenericRepository<ProductLocation>(_context);
+            PurchaseReceiptRepository = new GenericRepository<PurchaseReceipt>(_context);
             LogRepository = new GenericRepository<Log>(_context);
             InternalMessageRepository = new GenericRepository<InternalMessage>(_context);
         }
@@ -62,12 +60,12 @@ namespace StockKeeperMail.Desktop.DAL
 
         public void Rollback()
         {
-            _transaction.Rollback();
+            _transaction?.Rollback();
         }
 
         public void Commit()
         {
-            _transaction.Commit();
+            _transaction?.Commit();
         }
 
         public void Save()
@@ -77,10 +75,14 @@ namespace StockKeeperMail.Desktop.DAL
 
         protected virtual void Dispose(bool disposing)
         {
-            if(!this.disposed)
+            if (!disposed)
             {
-                _transaction?.Dispose();
-                _context.Dispose();
+                if (disposing)
+                {
+                    _transaction?.Dispose();
+                    _context.Dispose();
+                }
+                disposed = true;
             }
         }
 
